@@ -4,10 +4,12 @@ import { AddHeroesComponent } from './pages/add-heroes/add-heroes.component';
 import { AllHeroesComponent } from './pages/all-heroes/all-heroes.component';
 import { HeroeComponent } from './pages/heroe/heroe.component';
 import { SearchHeroesComponent } from './pages/search-heroes/search-heroes.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: HomeComponent,
     children: [
       {
         path: 'all-heroes',
