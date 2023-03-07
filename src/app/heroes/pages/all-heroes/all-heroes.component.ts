@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HeroesService } from '../../services/heroes.service';
 
 @Component({
   selector: 'app-all-heroes',
-  templateUrl: './all-heroes.component.html',
-  styleUrls: ['./all-heroes.component.css']
+  templateUrl: './all-heroes.component.html'
 })
-export class AllHeroesComponent {
+export class AllHeroesComponent implements OnInit {
 
+  constructor(
+    private heroesService: HeroesService
+  ) { }
+
+  ngOnInit(): void {
+    this.heroesService.getHeroes()
+      .subscribe(heroes => {
+        console.log(heroes);
+      }    
+    );
+  }
 }

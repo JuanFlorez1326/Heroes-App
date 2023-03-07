@@ -8,6 +8,8 @@ import { SearchHeroesComponent } from './pages/search-heroes/search-heroes.compo
 import { HeroeComponent } from './pages/heroe/heroe.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AllHeroesComponent } from './pages/all-heroes/all-heroes.component';
+import { MaterialModule } from '../material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -21,7 +23,9 @@ import { AllHeroesComponent } from './pages/all-heroes/all-heroes.component';
   ],
   imports: [
     CommonModule,
-    HeroesRoutingModule
+    HeroesRoutingModule,
+    MaterialModule,
+    FlexLayoutModule
   ]
 })
 export class HeroesModule { }
