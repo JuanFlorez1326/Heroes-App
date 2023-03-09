@@ -16,9 +16,9 @@ export class AllHeroesComponent implements OnInit {
 
   ngOnInit(): void {
     this.heroesService.getHeroes()
-      .subscribe( response => {
-        this.heroes = response;
-      }    
-    );
+      .subscribe({
+        next: ( heroes ) => this.heroes = heroes
+      }
+    )    
   }
 }
