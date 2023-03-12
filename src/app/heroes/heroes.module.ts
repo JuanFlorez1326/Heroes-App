@@ -13,6 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CardHeroComponent } from './components/card-hero/card-hero.component';
 import { ImagePipe } from './pipes/image.pipe';
 import { FormsModule } from '@angular/forms';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 
 
 
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     AllHeroesComponent,
     CardHeroComponent,
-    ImagePipe
+    ImagePipe,
+    ConfirmComponent
   ],
   imports: [
     CommonModule,
