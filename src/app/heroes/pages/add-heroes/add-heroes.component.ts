@@ -6,7 +6,8 @@ import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-heroes',
-  templateUrl: './add-heroes.component.html'
+  templateUrl: './add-heroes.component.html',
+  styles: [` img { width: 100%; border-radius: 5px } `]
 })
 export class AddHeroesComponent implements OnInit {
 
@@ -18,6 +19,9 @@ export class AddHeroesComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if(!this.router.url.includes('edit-hero')) {
+      return;
+    }
     this.activatedRoute.params
     .pipe(
       switchMap(({ id }) => this.heroesService.getHeroById(id))
@@ -53,5 +57,13 @@ export class AddHeroesComponent implements OnInit {
         this.router.navigate(['/heroes/edit-hero', heroe.id]);
       });
     }
+  }
+
+  deleteHero() {
+    this.heroesService.deleteHero( this.heroe.id! )
+    .subscribe(res => {
+      console.log(res);
+      this.router.navigate(['/heroes'])
+    })
   }
 }

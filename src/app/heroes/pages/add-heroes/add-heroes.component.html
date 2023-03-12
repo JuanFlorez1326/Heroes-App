@@ -40,13 +40,22 @@
         </mat-form-field>
 
    
-        <button mat-raised-button color="primary" (click)="saveHero()" >
-            <mat-icon>save</mat-icon>
-            Save Hero
-        </button>
+        <div fxLayout>
+            <button mat-raised-button color="primary" (click)="saveHero()" >
+                <mat-icon>save</mat-icon>
+                Save Hero
+            </button>
+
+            <span class="spacer" ></span>
+    
+            <button *ngIf="heroe.id" mat-raised-button color="warn" (click)="deleteHero()" >
+                <mat-icon>delete</mat-icon>
+                Delete Hero
+            </button>
+        </div>
 
     </div>
-    <!-- <div fxFlex="50">
+    <div fxFlex="50">
         <img [src]="heroe | imagePipe " alt="Character Image">
-    </div> -->
+    </div>
 </div>
