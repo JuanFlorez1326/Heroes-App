@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot, UrlSegment } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot, UrlSegment, Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -9,7 +9,8 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate, CanLoad {
 
   constructor(
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly router: Router
   ){}
 
   canActivate(
@@ -17,24 +18,25 @@ export class AuthGuard implements CanActivate, CanLoad {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
 
-    if( this.authService.auth.id ) {
-      return true;
-    }
-
-    console.log('Blocked by AuthGuard - CanActivate');  
-    return false;
+    return this.authService.verifyAuthentication().pipe(
+      tap( authTrue => {
+        if( !authTrue ) {
+          this.router.navigate(['/auth/login'])
+        }
+      })
+    )
   }
 
   canLoad(
     route: Route,
     segments: UrlSegment[]
-  ): Observable<boolean> | Promise<boolean> | boolean {
-      
-      if( this.authService.auth.id ) {
-        return true;
-      }
-
-    console.log('Blocked by AuthGuard - CanLoad');  
-    return false;
+  ): Observable<boolean> | boolean {
+    return this.authService.verifyAuthentication().pipe(
+      tap( authTrue => {
+        if( !authTrue ) {
+          this.router.navigate(['/auth/login'])
+        }
+      })
+    )
   }
 }

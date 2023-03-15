@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment as api } from 'src/environments/environment';
 import { Auth } from '../interfaces/auth.interfaces';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, of, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,20 @@ export class AuthService {
   get auth(): Auth {
     return { ...this._auth! }
   }
+  
+  verifyAuthentication(): Observable<boolean> {
+    if (!sessionStorage.getItem('ID')) {
+      return of( false )
+    }
+    return this.http.get<Auth>(`${this.url}/usuarios/1`)
+    .pipe(
+      map( auth => {
+        console.log('MAP',auth);
+        this._auth = auth
+        return true 
+      })
+    )
+  }
 
   login(): Observable<Auth> {
     return this.http.get<Auth>(`${this.url}/usuarios/1`)
@@ -26,7 +40,7 @@ export class AuthService {
     )
   }
 
-  logout(){{
+  logout(){
     this._auth = undefined
-  }}
+  }
 }
